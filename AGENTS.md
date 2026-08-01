@@ -18,12 +18,12 @@ This repository is the language-neutral protocol authority. Changes here may aff
 - Product-definition validation implementations; use sibling `dgp-validation`.
 - Expression execution, customer input state, or ordering behavior; use sibling `dgp-ordering`.
 - Editorial session orchestration; use sibling `dgp-workspace`.
-- Visual authoring, expression testing UI, and diagnostic presentation; use the current Studio implementation.
+- Visual authoring, expression testing UI, and diagnostic presentation; use sibling `dgp-studio`.
 - Handler fulfillment behavior; use sibling `dgp-sdk`.
 
 ## References
 
 - Legacy schema source: `D:\Projects\GitHub\digital-service-ui-builder\src\schema`. Treat it as migration evidence, not automatic protocol authority.
 - Backend DTO authority during migration: sibling `../dgp-sdk` at `D:\Projects\GitHub\elqora\digital-goods-protocol\dgp-sdk`.
-- Current Studio and browser-expression reference: `D:\Projects\GitHub\service-builder`.
-- Sibling repositories: `../dgp-core`, `../dgp-validation`, `../dgp-ordering`, and `../dgp-workspace`.
+- Studio destination: sibling `../dgp-studio`; code and history migration source: `D:\Projects\GitHub\service-builder`.
+- Sibling repositories: `../dgp-core`, `../dgp-validation`, `../dgp-ordering`, `../dgp-workspace`, and `../dgp-studio`.
