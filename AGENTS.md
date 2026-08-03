@@ -8,6 +8,14 @@ This repository is the language-neutral protocol authority. It owns the canonica
 
 Explicit workspace architecture decisions govern until represented here. Once a contract is ratified in this repository, every SDK and consumer must conform; divergence is a defect. Existing `dgp-sdk` behavior remains authoritative only for backend concerns not yet decided here or in the workspace contract.
 
+## Contract lifecycle
+
+- A contract is **draft** while proposed, unmerged, incomplete, or explicitly marked draft. It is not authoritative.
+- A contract is **ratified** only when its versioned schema, required fixtures, rationale, and explicit stable status are merged into `dgp-spec/main`.
+- A contract is **released** when that ratified version is tagged and published.
+
+Dependent repositories may implement ratified, unreleased contracts during coordinated development. Stable dependent releases require a released Spec version. Merge alone is insufficient when any ratification artifact is missing, and release does not replace ratification.
+
 ## Contract rules
 
 - Author canonical machine-readable contracts as versioned JSON Schema, not TypeScript-first definitions.
@@ -22,6 +30,14 @@ Explicit workspace architecture decisions govern until represented here. Once a 
 ## Clean-break rule
 
 DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibility modes, or schemas for old definitions. Legacy schemas and tests are evidence only.
+
+## Change workflow and operations
+
+- Land schemas, diagnostics, fixtures, rationale, and stable status here before consumers implement a protocol change.
+- Generate bindings from the ratified schemas, then align Core and SDK, followed by Validation, Ordering and its adapter, and Workspace as applicable.
+- Commit and release every repository independently and publish stable artifacts in dependency order.
+- This repository has no implementation manifest or operational commands yet. Do not invent install, test, lint, type-check, build, or generation commands.
+- When its toolchain is introduced, document all real commands, supported runtimes, committed generated outputs, completion criteria, and checks for schema/binding drift and independently authored contract types.
 
 ## Excluded
 
@@ -40,4 +56,4 @@ DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibili
 - Studio source evidence: `D:\Projects\GitHub\service-builder`; destination: sibling `../dgp-studio`.
 - Siblings: `../dgp-core`, `../dgp-validation`, `../dgp-ordering`, `../dgp-ordering-form-palette`, `../dgp-workspace`, `../dgp-sdk`, and `../dgp-studio`.
 
-This repository remains GPL-3.0.
+This repository remains GPL-3.0-only. Future manifests and source headers must use that exact SPDX identifier.
