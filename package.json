@@ -10,7 +10,7 @@
   "packageManager": "npm@11.6.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elqora/dgp-spec.git"
+    "url": "git+https://github.com/elqora/dgp-spec.git"
   },
   "publishConfig": {
     "access": "public"
