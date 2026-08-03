@@ -1,0 +1,78 @@
+[
+  {
+    "fixture": "valid/handler-service.json",
+    "schema": "handler-service.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/handler-service-legacy-fields.json",
+    "schema": "handler-service.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/handler-service-capability-key-mismatch.json",
+    "schema": "handler-service.schema.json",
+    "valid": false,
+    "semantic_rule": "capability_key_matches_id"
+  },
+  {
+    "fixture": "valid/service-capability.json",
+    "schema": "service-capability.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/service-capability-missing-enabled.json",
+    "schema": "service-capability.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/service-capability-null-meta.json",
+    "schema": "service-capability.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "valid/product-definition.json",
+    "schema": "product-definition.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/product-definition-camel-case-effect.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/product-definition-derived-capabilities.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/product-definition-expression-missing-body.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/product-definition-missing-version.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/product-definition-component-property.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "valid/browser-javascript-expression.json",
+    "schema": "browser-javascript-expression.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/browser-javascript-expression-callback.json",
+    "schema": "browser-javascript-expression.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "invalid/browser-javascript-expression-empty-body.json",
+    "schema": "browser-javascript-expression.schema.json",
+    "valid": false
+  }
+]

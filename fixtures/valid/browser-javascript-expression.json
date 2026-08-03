@@ -1,0 +1,4 @@
+{
+  "language": "javascript",
+  "body": "return values.length;"
+}

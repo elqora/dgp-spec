@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/handler-service.schema.json",
+  "$ref": "#/definitions/HandlerService",
+  "definitions": {
+    "HandlerService": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ServiceId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "min": {
+          "$ref": "#/definitions/Integer"
+        },
+        "max": {
+          "$ref": "#/definitions/Integer"
+        },
+        "capabilities": {
+          "$ref": "#/definitions/ServiceCapabilities"
+        },
+        "meta": {
+          "type": "object"
+        },
+        "state": {
+          "$ref": "#/definitions/HandlerServiceState"
+        },
+        "state_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "category",
+        "rate",
+        "min",
+        "max",
+        "capabilities",
+        "meta",
+        "state",
+        "state_reason"
+      ],
+      "additionalProperties": false,
+      "description": "Portable service-catalog representation reconciled from the backend SDK.\n\nRates are handler-provided catalog data. They are not final prices or charges, and browser consumers must not treat them as authoritative checkout totals."
+    },
+    "ServiceId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/Integer"
+        }
+      ],
+      "description": "Stable handler-assigned service identity."
+    },
+    "Integer": {
+      "type": "integer",
+      "description": "A JSON integer represented by TypeScript's number type."
+    },
+    "ServiceCapabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/ServiceCapability"
+      },
+      "description": "Capabilities keyed by the same stable identifier carried by each value."
+    },
+    "ServiceCapability": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "enabled",
+        "description",
+        "meta"
+      ],
+      "additionalProperties": false,
+      "description": "A named behavior exposed by a handler service."
+    },
+    "HandlerServiceState": {
+      "type": "string",
+      "enum": [
+        "enabled",
+        "disabled",
+        "locked"
+      ]
+    }
+  }
+}

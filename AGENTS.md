@@ -39,8 +39,10 @@ DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibili
 - Land plain TypeScript contracts, diagnostics, JSON fixtures, rationale, and stable status here before dependent packages implement a shared contract.
 - Generate and drift-check JSON Schemas once tooling exists, then align SDK serialization and Core, followed by Validation, Ordering and its adapter, and Workspace as applicable.
 - Commit and release every repository independently and publish stable artifacts in dependency order.
-- This repository has no implementation manifest or operational commands yet. Do not invent install, test, lint, type-check, build, or generation commands.
-- When its toolchain is introduced, document all real commands, supported runtimes, committed generated outputs, completion criteria, and checks for schema/binding drift and independently authored contract types.
+- The supported runtime is Node.js 22 or newer. Install the locked dependency graph with `npm install`.
+- Run tests with `npm test`, lint with `npm run lint`, type checking with `npm run typecheck`, build with `npm run build`, and JSON Schema generation with `npm run generate`.
+- Generated JSON Schemas under `schemas/` are committed. Verify drift with `npm run check:schemas` and source boundaries with `npm run check:boundaries`.
+- Run the full repository completion check with `npm run check`. Completion requires every subcommand to pass, required hand-authored fixtures and rationale to be current, generated schemas to be clean, and `git status` to contain no unintended changes.
 
 ## Excluded
 

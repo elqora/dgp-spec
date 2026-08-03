@@ -1,0 +1,865 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/product-definition.schema.json",
+  "$ref": "#/definitions/ProductDefinition",
+  "definitions": {
+    "ProductDefinition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/Integer"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductFilter"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductField"
+          }
+        },
+        "order_for_tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "includes_for_buttons": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "excludes_for_buttons": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "option_effects_for_buttons": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/OptionEffectForButton"
+            }
+          }
+        },
+        "value_effects_for_triggers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/FieldValueEffect"
+            }
+          }
+        },
+        "schema_version": {
+          "$ref": "#/definitions/ProductDefinitionSchemaVersion"
+        },
+        "fallbacks": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ServiceFallbacks"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductNotice"
+          }
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "filters",
+        "fields",
+        "order_for_tags",
+        "includes_for_buttons",
+        "excludes_for_buttons",
+        "option_effects_for_buttons",
+        "value_effects_for_triggers",
+        "schema_version",
+        "fallbacks",
+        "description",
+        "notices",
+        "meta"
+      ],
+      "additionalProperties": false,
+      "description": "Canonical authored root contract for a DGP v1 product."
+    },
+    "Integer": {
+      "type": "integer",
+      "description": "A JSON integer represented by TypeScript's number type."
+    },
+    "ProductFilter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "bind_id": {
+          "type": "string"
+        },
+        "service_id": {
+          "$ref": "#/definitions/ServiceId"
+        },
+        "includes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excludes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "capabilities": {
+          "$ref": "#/definitions/CapabilityRequirements"
+        },
+        "quantity_default": {
+          "type": "number"
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "ServiceId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/Integer"
+        }
+      ],
+      "description": "Stable handler-assigned service identity."
+    },
+    "CapabilityRequirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "ProductField": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "button": {
+              "type": "boolean",
+              "const": false
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "bind_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "default_value": {
+              "$ref": "#/definitions/JsonValue"
+            },
+            "defaults": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/JsonValue"
+              }
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FieldOption"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "pricing_role": {
+              "$ref": "#/definitions/PricingRole"
+            },
+            "validation": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FieldValidationRule"
+              }
+            },
+            "quantity_default": {
+              "type": "number"
+            },
+            "quantity": {
+              "$ref": "#/definitions/QuantityRule"
+            },
+            "utility": {
+              "$ref": "#/definitions/UtilityDefinition"
+            },
+            "meta": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "type"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "button": {
+              "type": "boolean",
+              "const": true
+            },
+            "service_id": {
+              "$ref": "#/definitions/ServiceId"
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "bind_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "default_value": {
+              "$ref": "#/definitions/JsonValue"
+            },
+            "defaults": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/JsonValue"
+              }
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FieldOption"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "pricing_role": {
+              "$ref": "#/definitions/PricingRole"
+            },
+            "validation": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FieldValidationRule"
+              }
+            },
+            "quantity_default": {
+              "type": "number"
+            },
+            "quantity": {
+              "$ref": "#/definitions/QuantityRule"
+            },
+            "utility": {
+              "$ref": "#/definitions/UtilityDefinition"
+            },
+            "meta": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "button",
+            "id",
+            "label",
+            "type"
+          ]
+        }
+      ]
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/JsonPrimitive"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        }
+      ]
+    },
+    "JsonPrimitive": {
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "FieldOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/JsonPrimitive"
+        },
+        "service_id": {
+          "$ref": "#/definitions/ServiceId"
+        },
+        "pricing_role": {
+          "$ref": "#/definitions/PricingRole"
+        },
+        "quantity_default": {
+          "type": "number"
+        },
+        "utility": {
+          "$ref": "#/definitions/UtilityDefinition"
+        },
+        "meta": {
+          "type": "object"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldOption"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "PricingRole": {
+      "type": "string",
+      "enum": [
+        "base",
+        "utility"
+      ]
+    },
+    "UtilityDefinition": {
+      "type": "object",
+      "properties": {
+        "rate": {
+          "type": "number"
+        },
+        "mode": {
+          "$ref": "#/definitions/UtilityMode"
+        },
+        "value_by": {
+          "type": "string",
+          "enum": [
+            "value",
+            "length"
+          ]
+        },
+        "percent_base": {
+          "type": "string",
+          "enum": [
+            "service_total",
+            "base_service",
+            "all"
+          ]
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rate",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "UtilityMode": {
+      "type": "string",
+      "enum": [
+        "flat",
+        "per_quantity",
+        "per_value",
+        "percent"
+      ]
+    },
+    "FieldValidationRule": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "enum": [
+                "value",
+                "length"
+              ]
+            },
+            "op": {
+              "$ref": "#/definitions/FieldValidationOperator"
+            },
+            "value": {
+              "$ref": "#/definitions/JsonValue"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JsonValue"
+              }
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "pattern_flags": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "op"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "const": "eval"
+            },
+            "expression": {
+              "$ref": "#/definitions/BrowserJavaScriptExpression"
+            },
+            "op": {
+              "$ref": "#/definitions/FieldValidationOperator"
+            },
+            "value": {
+              "$ref": "#/definitions/JsonValue"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JsonValue"
+              }
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "pattern_flags": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "expression",
+            "op",
+            "value_by"
+          ]
+        }
+      ]
+    },
+    "FieldValidationOperator": {
+      "type": "string",
+      "enum": [
+        "eq",
+        "neq",
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "between",
+        "in",
+        "nin",
+        "truthy",
+        "falsy",
+        "match"
+      ]
+    },
+    "BrowserJavaScriptExpression": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "const": "javascript"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "language",
+        "body"
+      ],
+      "additionalProperties": false,
+      "description": "A trusted host-authored browser JavaScript function body."
+    },
+    "QuantityRule": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "enum": [
+                "value",
+                "length"
+              ]
+            },
+            "multiply": {
+              "type": "number"
+            },
+            "clamp": {
+              "$ref": "#/definitions/QuantityClamp"
+            },
+            "fallback": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "value_by"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "const": "eval"
+            },
+            "expression": {
+              "$ref": "#/definitions/BrowserJavaScriptExpression"
+            },
+            "multiply": {
+              "type": "number"
+            },
+            "clamp": {
+              "$ref": "#/definitions/QuantityClamp"
+            },
+            "fallback": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "expression",
+            "value_by"
+          ]
+        }
+      ]
+    },
+    "QuantityClamp": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OptionEffectForButton": {
+      "type": "object",
+      "properties": {
+        "force_visible": {
+          "type": "boolean"
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "FieldValueEffect": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/JsonValue"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "always",
+            "if_empty"
+          ]
+        },
+        "clear_on_deactivate": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ProductDefinitionSchemaVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "ServiceFallbacks": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ServiceId"
+            }
+          }
+        },
+        "global": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ServiceId"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductNotice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ProductNoticeType"
+        },
+        "kind": {
+          "$ref": "#/definitions/ProductNoticeKind"
+        },
+        "severity": {
+          "$ref": "#/definitions/ProductNoticeSeverity"
+        },
+        "target": {
+          "$ref": "#/definitions/ProductNoticeTarget"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "marked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "kind",
+        "severity",
+        "target",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "ProductNoticeType": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ]
+    },
+    "ProductNoticeKind": {
+      "type": "string",
+      "enum": [
+        "label",
+        "warning",
+        "deprecation",
+        "policy"
+      ]
+    },
+    "ProductNoticeSeverity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ]
+    },
+    "ProductNoticeTarget": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "type": "string",
+              "const": "global"
+            }
+          },
+          "required": [
+            "scope"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "type": "string",
+              "const": "node"
+            },
+            "node_kind": {
+              "type": "string",
+              "enum": [
+                "tag",
+                "field",
+                "option"
+              ]
+            },
+            "node_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "scope",
+            "node_kind",
+            "node_id"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

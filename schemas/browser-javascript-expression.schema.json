@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/browser-javascript-expression.schema.json",
+  "$ref": "#/definitions/BrowserJavaScriptExpression",
+  "definitions": {
+    "BrowserJavaScriptExpression": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "const": "javascript"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "language",
+        "body"
+      ],
+      "additionalProperties": false,
+      "description": "A trusted host-authored browser JavaScript function body."
+    }
+  }
+}

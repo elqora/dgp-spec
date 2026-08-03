@@ -26,9 +26,29 @@ No runtime interpretation, UI rendering, editorial workflow, or fulfillment impl
 - [DGP SDK](https://github.com/elqora/dgp-sdk) defines backend handler and fulfillment contracts.
 - [Digital Service Engine](https://github.com/timeax/digital-service-engine) is the legacy migration source and behavioral reference.
 
-## Status
+## Toolchain
 
-Repository scaffold only. Protocol extraction and migration will be planned separately.
+DGP Spec is an independent npm package. It supports Node.js 22 or newer and uses npm with the committed lockfile.
+
+```bash
+npm install
+npm run lint
+npm run typecheck
+npm test
+npm run generate
+npm run check:schemas
+npm run check:boundaries
+npm run build
+npm run check
+```
+
+`npm run generate` derives JSON Schemas from the canonical TypeScript declarations and writes them to `schemas/`. These generated schemas are committed. `npm run check:schemas` regenerates into an isolated temporary directory and fails on file-set or content drift. Hand-authored valid and invalid JSON fixtures are exercised by `npm test`.
+
+`npm run check` is the repository completion command. It runs lint, type checking, fixture tests, source-boundary enforcement, schema drift verification, and the package build.
+
+## Contract status
+
+The initial DGP v1 `ProductDefinition`, browser JavaScript expression, handler-service, and service-capability contracts are stable. Their reviewed rationale and ratification evidence are recorded in [the ProductDefinition rationale](docs/contracts/v1/product-definition.md) and [the service-catalog rationale](docs/contracts/v1/service-catalog.md). They become ratified when the complete TypeScript sources, fixtures, rationale, stable statuses, and generated schemas are merged into `main`, and released when version 1.0.0 is tagged and published.
 
 ## License
 
