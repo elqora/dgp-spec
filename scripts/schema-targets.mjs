@@ -35,4 +35,10 @@ export const schemaTargets = Object.freeze([
     output: "product-definition-validation-result.schema.json",
     id: "https://schemas.elqora.com/dgp/v1/product-definition-validation-result.schema.json",
   }),
+  Object.freeze({
+    type: "OrderSnapshot",
+    source: "src/order-snapshot.ts",
+    output: "order-snapshot.schema.json",
+    id: "https://schemas.elqora.com/dgp/v1/order-snapshot.schema.json",
+  }),
 ]);

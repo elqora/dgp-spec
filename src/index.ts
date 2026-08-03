@@ -24,6 +24,18 @@ export {
 } from "./diagnostic.js";
 export type { JsonPrimitive, JsonValue } from "./json.js";
 export type {
+  OrderSnapshot,
+  OrderSnapshotFieldSelection,
+  OrderSnapshotInputs,
+  OrderSnapshotMode,
+  OrderSnapshotQuantitySource,
+  OrderSnapshotSelection,
+  OrderSnapshotUtility,
+  OrderSnapshotUtilityInputs,
+  OrderSnapshotVersion,
+} from "./order-snapshot.js";
+export { ORDER_SNAPSHOT_VERSION } from "./order-snapshot.js";
+export type {
   CapabilityRequirements,
   FieldOption,
   FieldValidationOperator,

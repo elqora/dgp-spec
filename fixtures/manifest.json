@@ -89,5 +89,15 @@
     "fixture": "valid/product-definition-validation-result.json",
     "schema": "product-definition-validation-result.schema.json",
     "valid": true
+  },
+  {
+    "fixture": "valid/order-snapshot.json",
+    "schema": "order-snapshot.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/order-snapshot-camel-case.json",
+    "schema": "order-snapshot.schema.json",
+    "valid": false
   }
 ]

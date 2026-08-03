@@ -15,7 +15,7 @@ Spec defines portable representation and versioning. Backend domain semantics re
 
 No runtime interpretation, UI rendering, editorial workflow, or fulfillment implementation belongs here.
 
-The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec.
+The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec. Package 1.2 adds the canonical OrderSnapshot wire contract and exact advisory utility-result representation.
 
 ## Ecosystem
 
@@ -50,7 +50,7 @@ npm run check
 
 ## Contract status
 
-The initial DGP v1 `ProductDefinition`, browser JavaScript expression, handler-service, and service-capability contracts are stable. Their reviewed rationale and ratification evidence are recorded in [the ProductDefinition rationale](docs/contracts/v1/product-definition.md) and [the service-catalog rationale](docs/contracts/v1/service-catalog.md). They become ratified when the complete TypeScript sources, fixtures, rationale, stable statuses, and generated schemas are merged into `main`, and released when version 1.0.0 is tagged and published.
+The DGP v1 `ProductDefinition`, browser JavaScript expression, handler-service, service-capability, diagnostic, and OrderSnapshot contracts are stable. Their reviewed rationale and ratification evidence are recorded in the versioned documents under [docs/contracts/v1](docs/contracts/v1). A contract becomes ratified when its complete TypeScript source, fixtures, rationale, stable status, and generated schema are merged into `main`, and released when its package version is tagged and published.
 
 ## License
 

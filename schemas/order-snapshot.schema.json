@@ -1,0 +1,530 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/order-snapshot.schema.json",
+  "$ref": "#/definitions/OrderSnapshot",
+  "definitions": {
+    "OrderSnapshot": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "$ref": "#/definitions/OrderSnapshotVersion"
+        },
+        "mode": {
+          "$ref": "#/definitions/OrderSnapshotMode"
+        },
+        "built_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "product_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/Integer"
+            }
+          ]
+        },
+        "definition_schema_version": {
+          "$ref": "#/definitions/ProductDefinitionSchemaVersion"
+        },
+        "selection": {
+          "$ref": "#/definitions/OrderSnapshotSelection"
+        },
+        "inputs": {
+          "$ref": "#/definitions/OrderSnapshotInputs"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "quantity_source": {
+          "$ref": "#/definitions/OrderSnapshotQuantitySource"
+        },
+        "min": {
+          "$ref": "#/definitions/Integer"
+        },
+        "max": {
+          "$ref": "#/definitions/Integer"
+        },
+        "service_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceId"
+          }
+        },
+        "service_ids_by_node": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ServiceId"
+            }
+          }
+        },
+        "fallbacks": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ServiceFallbacks"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "utilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderSnapshotUtility"
+          }
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "version",
+        "mode",
+        "built_at",
+        "product_id",
+        "definition_schema_version",
+        "selection",
+        "inputs",
+        "quantity",
+        "quantity_source",
+        "min",
+        "max",
+        "service_ids",
+        "service_ids_by_node",
+        "fallbacks",
+        "utilities",
+        "meta"
+      ],
+      "additionalProperties": false,
+      "description": "Portable customer-order evidence for handler validation and fulfillment."
+    },
+    "OrderSnapshotVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "OrderSnapshotMode": {
+      "type": "string",
+      "enum": [
+        "prod",
+        "dev"
+      ]
+    },
+    "Integer": {
+      "type": "integer",
+      "description": "A JSON integer represented by TypeScript's number type."
+    },
+    "ProductDefinitionSchemaVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "OrderSnapshotSelection": {
+      "type": "object",
+      "properties": {
+        "filter_id": {
+          "type": "string"
+        },
+        "trigger_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderSnapshotFieldSelection"
+          }
+        }
+      },
+      "required": [
+        "filter_id",
+        "trigger_ids",
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "OrderSnapshotFieldSelection": {
+      "type": "object",
+      "properties": {
+        "field_id": {
+          "type": "string"
+        },
+        "field_type": {
+          "type": "string"
+        },
+        "selected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "field_id",
+        "field_type",
+        "selected_option_ids"
+      ],
+      "additionalProperties": false
+    },
+    "OrderSnapshotInputs": {
+      "type": "object",
+      "properties": {
+        "form": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        },
+        "selections": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "form",
+        "selections"
+      ],
+      "additionalProperties": false
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/JsonPrimitive"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        }
+      ]
+    },
+    "JsonPrimitive": {
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "OrderSnapshotQuantitySource": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "field_rule"
+            },
+            "node_id": {
+              "type": "string"
+            },
+            "rule": {
+              "$ref": "#/definitions/QuantityRule"
+            },
+            "defaulted_from_host": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "kind",
+            "node_id",
+            "rule",
+            "defaulted_from_host"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "option_default",
+                "field_default",
+                "filter_default"
+              ]
+            },
+            "node_id": {
+              "type": "string"
+            },
+            "rule": {
+              "type": "null"
+            },
+            "defaulted_from_host": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "kind",
+            "node_id",
+            "rule",
+            "defaulted_from_host"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "host_default"
+            },
+            "node_id": {
+              "type": "null"
+            },
+            "rule": {
+              "type": "null"
+            },
+            "defaulted_from_host": {
+              "type": "boolean",
+              "const": true
+            }
+          },
+          "required": [
+            "kind",
+            "node_id",
+            "rule",
+            "defaulted_from_host"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "QuantityRule": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "enum": [
+                "value",
+                "length"
+              ]
+            },
+            "multiply": {
+              "type": "number"
+            },
+            "clamp": {
+              "$ref": "#/definitions/QuantityClamp"
+            },
+            "fallback": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "value_by"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value_by": {
+              "type": "string",
+              "const": "eval"
+            },
+            "expression": {
+              "$ref": "#/definitions/BrowserJavaScriptExpression"
+            },
+            "multiply": {
+              "type": "number"
+            },
+            "clamp": {
+              "$ref": "#/definitions/QuantityClamp"
+            },
+            "fallback": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "expression",
+            "value_by"
+          ]
+        }
+      ]
+    },
+    "QuantityClamp": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BrowserJavaScriptExpression": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "const": "javascript"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "language",
+        "body"
+      ],
+      "additionalProperties": false,
+      "description": "A trusted host-authored browser JavaScript function body."
+    },
+    "ServiceId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/Integer"
+        }
+      ],
+      "description": "Stable handler-assigned service identity."
+    },
+    "ServiceFallbacks": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ServiceId"
+            }
+          }
+        },
+        "global": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ServiceId"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrderSnapshotUtility": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/definitions/UtilityMode"
+        },
+        "rate": {
+          "type": "number"
+        },
+        "percent_base": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "service_total",
+            "base_service",
+            "all",
+            null
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "inputs": {
+          "$ref": "#/definitions/OrderSnapshotUtilityInputs"
+        },
+        "advisory_amount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "node_id",
+        "mode",
+        "rate",
+        "percent_base",
+        "label",
+        "inputs",
+        "advisory_amount"
+      ],
+      "additionalProperties": false,
+      "description": "An exact browser-calculated utility line. `advisory_amount` is evidence for previews and handlers must still calculate the authoritative charge."
+    },
+    "UtilityMode": {
+      "type": "string",
+      "enum": [
+        "flat",
+        "per_quantity",
+        "per_value",
+        "percent"
+      ]
+    },
+    "OrderSnapshotUtilityInputs": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "number"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "value_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "value",
+            "length",
+            null
+          ]
+        },
+        "base_amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "quantity",
+        "value",
+        "value_by",
+        "base_amount"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
