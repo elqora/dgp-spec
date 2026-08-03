@@ -4,22 +4,24 @@ Read and follow `../AGENTS.md` before working in this repository.
 
 ## Role and authority
 
-This repository is the language-neutral protocol authority. It owns the canonical `ProductDefinition`, versioned JSON Schemas, snake-case wire contracts, protocol versions, diagnostic identifiers, expression declarations, generated-binding inputs, and cross-language conformance fixtures.
+This repository owns canonical plain shared and wire contracts for DGP. During migration, those contracts are authored in TypeScript and include `ProductDefinition`, wire naming, protocol versions, diagnostic identifiers, expression declarations, JSON fixtures, and generated JSON Schema artifacts.
 
-Explicit workspace architecture decisions govern until represented here. Once a contract is ratified in this repository, every SDK and consumer must conform; divergence is a defect. Existing `dgp-sdk` behavior remains authoritative only for backend concerns not yet decided here or in the workspace contract.
+Read `CONTRACTS.md` before proposing or changing a shared contract. Spec owns portable representation and versioning, not every domain. `dgp-sdk` remains authoritative for backend domain semantics; legacy frontend behavior is evidence to be deliberately retained, improved, redesigned, or retired by its owning package.
 
 ## Contract lifecycle
 
-- A contract is **draft** while proposed, unmerged, incomplete, or explicitly marked draft. It is not authoritative.
-- A contract is **ratified** only when its versioned schema, required fixtures, rationale, and explicit stable status are merged into `dgp-spec/main`.
+- A contract is **draft** while its plain TypeScript definition is proposed, unmerged, incomplete, or explicitly marked draft. It is not authoritative.
+- A contract is **ratified** only when its versioned plain TypeScript definition, required JSON fixtures, rationale, and explicit stable status are merged into `dgp-spec/main`. Generated JSON Schemas must also be current once generation tooling exists.
 - A contract is **released** when that ratified version is tagged and published.
 
 Dependent repositories may implement ratified, unreleased contracts during coordinated development. Stable dependent releases require a released Spec version. Merge alone is insufficient when any ratification artifact is missing, and release does not replace ratification.
 
 ## Contract rules
 
-- Author canonical machine-readable contracts as versioned JSON Schema, not TypeScript-first definitions.
-- Generate TypeScript bindings from canonical schemas; do not maintain independently authored mirror types.
+- Author canonical contracts as plain TypeScript interfaces, type aliases, and constants.
+- Keep definitions JSON-compatible and free of classes, methods, callbacks, React or framework types, stores, and derived or editorial runtime state.
+- Generate JSON Schemas from canonical TypeScript, commit them for non-TypeScript consumers, and check them for drift once tooling exists.
+- Treat PHP DTOs and other language representations as bindings that must hydrate and serialize losslessly; do not copy their class hierarchies into the shared contract.
 - Use `snake_case` for serialized keys.
 - Define `meta` as an opaque host-owned JSON object. Do not reserve `{raw, derived}` as universal structure.
 - Use `capabilities`; exclude canonical `flags`, root capability booleans, and `estimates`.
@@ -33,8 +35,9 @@ DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibili
 
 ## Change workflow and operations
 
-- Land schemas, diagnostics, fixtures, rationale, and stable status here before consumers implement a protocol change.
-- Generate bindings from the ratified schemas, then align Core and SDK, followed by Validation, Ordering and its adapter, and Workspace as applicable.
+- Identify ownership and reconcile SDK backend semantics or accepted upgraded frontend behavior before ratifying a shared representation.
+- Land plain TypeScript contracts, diagnostics, JSON fixtures, rationale, and stable status here before dependent packages implement a shared contract.
+- Generate and drift-check JSON Schemas once tooling exists, then align SDK serialization and Core, followed by Validation, Ordering and its adapter, and Workspace as applicable.
 - Commit and release every repository independently and publish stable artifacts in dependency order.
 - This repository has no implementation manifest or operational commands yet. Do not invent install, test, lint, type-check, build, or generation commands.
 - When its toolchain is introduced, document all real commands, supported runtimes, committed generated outputs, completion criteria, and checks for schema/binding drift and independently authored contract types.
