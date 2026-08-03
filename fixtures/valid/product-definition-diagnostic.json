@@ -1,0 +1,11 @@
+{
+  "code": "field_binding_unknown",
+  "severity": "error",
+  "path": "/fields/0/bind_id",
+  "message": "Field field:quantity references unknown filter tag:missing.",
+  "related_paths": [],
+  "meta": {
+    "field_id": "field:quantity",
+    "filter_id": "tag:missing"
+  }
+}

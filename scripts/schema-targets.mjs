@@ -23,4 +23,16 @@ export const schemaTargets = Object.freeze([
     output: "service-capability.schema.json",
     id: "https://schemas.elqora.com/dgp/v1/service-capability.schema.json",
   }),
+  Object.freeze({
+    type: "ProductDefinitionDiagnostic",
+    source: "src/diagnostic.ts",
+    output: "product-definition-diagnostic.schema.json",
+    id: "https://schemas.elqora.com/dgp/v1/product-definition-diagnostic.schema.json",
+  }),
+  Object.freeze({
+    type: "ProductDefinitionValidationResult",
+    source: "src/diagnostic.ts",
+    output: "product-definition-validation-result.schema.json",
+    id: "https://schemas.elqora.com/dgp/v1/product-definition-validation-result.schema.json",
+  }),
 ]);

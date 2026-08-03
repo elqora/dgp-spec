@@ -74,5 +74,20 @@
     "fixture": "invalid/browser-javascript-expression-empty-body.json",
     "schema": "browser-javascript-expression.schema.json",
     "valid": false
+  },
+  {
+    "fixture": "valid/product-definition-diagnostic.json",
+    "schema": "product-definition-diagnostic.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "invalid/product-definition-diagnostic-unknown-code.json",
+    "schema": "product-definition-diagnostic.schema.json",
+    "valid": false
+  },
+  {
+    "fixture": "valid/product-definition-validation-result.json",
+    "schema": "product-definition-validation-result.schema.json",
+    "valid": true
   }
 ]

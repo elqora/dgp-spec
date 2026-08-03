@@ -12,6 +12,16 @@ export {
   BROWSER_JAVASCRIPT_EXPRESSION_ARGUMENTS,
   EXPRESSION_FAILURE_CODES,
 } from "./expression.js";
+export type {
+  DiagnosticSeverity,
+  ProductDefinitionDiagnostic,
+  ProductDefinitionDiagnosticCode,
+  ProductDefinitionValidationResult,
+} from "./diagnostic.js";
+export {
+  DIAGNOSTIC_SEVERITIES,
+  PRODUCT_DEFINITION_DIAGNOSTIC_CODES,
+} from "./diagnostic.js";
 export type { JsonPrimitive, JsonValue } from "./json.js";
 export type {
   CapabilityRequirements,

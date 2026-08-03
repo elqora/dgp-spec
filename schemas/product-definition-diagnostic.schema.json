@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/product-definition-diagnostic.schema.json",
+  "$ref": "#/definitions/ProductDefinitionDiagnostic",
+  "definitions": {
+    "ProductDefinitionDiagnostic": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ProductDefinitionDiagnosticCode"
+        },
+        "severity": {
+          "$ref": "#/definitions/DiagnosticSeverity"
+        },
+        "path": {
+          "type": "string",
+          "description": "RFC 6901 JSON Pointer into the canonical document."
+        },
+        "message": {
+          "type": "string"
+        },
+        "related_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "path",
+        "message",
+        "related_paths",
+        "meta"
+      ],
+      "additionalProperties": false,
+      "description": "Stable, editor-facing diagnostic emitted while ingesting or publishing a definition."
+    },
+    "ProductDefinitionDiagnosticCode": {
+      "type": "string",
+      "enum": [
+        "schema_required_property",
+        "schema_invalid_type",
+        "schema_invalid_value",
+        "schema_unknown_property",
+        "duplicate_node_id",
+        "duplicate_filter_label",
+        "duplicate_field_name",
+        "filter_binding_unknown",
+        "field_binding_unknown",
+        "filter_cycle",
+        "relationship_target_unknown",
+        "trigger_unknown",
+        "effect_target_unknown",
+        "effect_option_unknown",
+        "option_effect_conflict",
+        "visibility_dependency_cycle",
+        "value_effect_conflict",
+        "value_effect_cycle",
+        "capability_override_ignored",
+        "service_reference_unknown",
+        "capability_requirement_unsatisfied",
+        "fallback_node_unknown",
+        "fallback_candidate_unknown",
+        "fallback_primary_missing",
+        "fallback_self_reference",
+        "fallback_duplicate_candidate",
+        "fallback_cycle",
+        "utility_service_conflict",
+        "utility_base_missing"
+      ]
+    },
+    "DiagnosticSeverity": {
+      "type": "string",
+      "enum": [
+        "error",
+        "warning",
+        "info"
+      ]
+    }
+  }
+}

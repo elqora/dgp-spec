@@ -15,6 +15,8 @@ Spec defines portable representation and versioning. Backend domain semantics re
 
 No runtime interpretation, UI rendering, editorial workflow, or fulfillment implementation belongs here.
 
+The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec.
+
 ## Ecosystem
 
 - [DGP Core](https://github.com/elqora/dgp-core) interprets product definitions.

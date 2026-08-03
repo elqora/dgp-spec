@@ -1,0 +1,8 @@
+{
+  "code": "legacy_bad_bind_reference",
+  "severity": "error",
+  "path": "/fields/0/bind_id",
+  "message": "Legacy diagnostic code is not canonical.",
+  "related_paths": [],
+  "meta": {}
+}
