@@ -14,7 +14,7 @@ Diagnostics use RFC 6901 JSON Pointers so every language can identify the same c
 
 ## Code disposition
 
-The initial identifiers cover schema failures, identity and graph coherence, relationship/effect references, visibility and value-effect cycles, ignored descendant capability overrides, fallback registration coherence, and advisory-utility conflicts. They deliberately retire legacy custom-component, frontend rate-authority, constraint, and compatibility diagnostics. Form-library resolution, service rates, charges, and fulfillment are not ProductDefinition validation concerns.
+The identifiers cover schema failures, identity and graph coherence, relationship/effect references and conflicts, visibility and value-effect cycles, customer-rule and quantity-rule configuration, ignored descendant capability overrides, fallback registration coherence, and advisory-utility conflicts. Rule-configuration diagnostics were added in package 1.3 so malformed host rules are rejected at publication rather than presented to customers as invalid input. The family deliberately retires legacy custom-component, frontend rate-authority, constraint, and compatibility diagnostics. Form-library resolution, service rates, charges, and fulfillment are not ProductDefinition validation concerns.
 
 Host publication policies may produce a separate host-defined diagnostic family. They must not masquerade as universal DGP codes or amend `PRODUCT_DEFINITION_DIAGNOSTIC_CODES` outside Spec ratification.
 

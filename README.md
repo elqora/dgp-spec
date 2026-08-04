@@ -15,7 +15,7 @@ Spec defines portable representation and versioning. Backend domain semantics re
 
 No runtime interpretation, UI rendering, editorial workflow, or fulfillment implementation belongs here.
 
-The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec. Package 1.2 adds the canonical OrderSnapshot wire contract and exact advisory utility-result representation.
+The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec. Package 1.2 adds the canonical OrderSnapshot wire contract and exact advisory utility-result representation. Package 1.3 extends stable diagnostics for relationship conflicts and malformed customer/quantity rules.
 
 ## Ecosystem
 
