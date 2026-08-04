@@ -46,6 +46,7 @@
     "check:schemas": "node scripts/check-schemas.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run check:boundaries && npm run check:schemas && npm run build",
+    "prepare": "npm run build",
     "prepack": "npm run check"
   },
   "devDependencies": {
