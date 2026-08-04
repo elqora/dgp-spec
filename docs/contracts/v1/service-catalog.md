@@ -13,6 +13,8 @@ The portable representation deliberately differs from the SDK's current `Service
 
 Capabilities remain a map keyed by stable capability identifier, matching the SDK's established lookup semantics. Each value repeats its `id` so list and map bindings can share one value shape; conformance requires the map key and value identifier to match.
 
+Service references compare by their canonical string key because JSON object keys are strings and existing SDK catalogs may expose integer identifiers through those maps. Integer `101` and string `"101"` therefore identify the same service; non-canonical numeric spellings such as `"001"` remain distinct from `1`. Bindings must preserve the original scalar representation when round-tripping a value even though lookup and deduplication use the canonical string key.
+
 The contract rejects the legacy frontend `flags` and `estimates` fields. Service availability uses `state`, and named service behavior uses `capabilities`.
 
 ## Ratification evidence

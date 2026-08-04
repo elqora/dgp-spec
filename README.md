@@ -15,7 +15,7 @@ Spec defines portable representation and versioning. Backend domain semantics re
 
 No runtime interpretation, UI rendering, editorial workflow, or fulfillment implementation belongs here.
 
-The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec. Package 1.2 adds the canonical OrderSnapshot wire contract and exact advisory utility-result representation. Package 1.3 extends stable diagnostics for relationship conflicts and malformed customer/quantity rules.
+The diagnostic contract added in package 1.1 defines stable ProductDefinition publication codes, severities, RFC 6901 paths, and validation-result wire shapes without moving validation behavior into Spec. Package 1.2 adds the canonical OrderSnapshot wire contract and exact advisory utility-result representation. Package 1.3 extends stable diagnostics for relationship conflicts and malformed customer/quantity rules. The unreleased package 1.4 contract adds explicit field variants and multiple selection, restores the complete publication diagnostic vocabulary, and adds portable semantic validation and browser-expression conformance suites; see [MIGRATION.md](MIGRATION.md) for evidence and remaining downstream work.
 
 ## Ecosystem
 
@@ -50,7 +50,7 @@ npm run check
 
 ## Contract status
 
-The DGP v1 `ProductDefinition`, browser JavaScript expression, handler-service, service-capability, diagnostic, and OrderSnapshot contracts are stable. Their reviewed rationale and ratification evidence are recorded in the versioned documents under [docs/contracts/v1](docs/contracts/v1). A contract becomes ratified when its complete TypeScript source, fixtures, rationale, stable status, and generated schema are merged into `main`, and released when its package version is tagged and published.
+The DGP v1 `ProductDefinition`, browser JavaScript expression, handler-service, service-capability, diagnostic, OrderSnapshot, and conformance-suite contracts are stable. Their reviewed rationale and ratification evidence are recorded in the versioned documents under [docs/contracts/v1](docs/contracts/v1). A contract becomes ratified when its complete TypeScript source, fixtures, rationale, stable status, and generated schema are merged into `main`, and released when its package version is tagged and published. Package 1.4 is currently unreleased.
 
 ## License
 

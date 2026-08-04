@@ -1,5 +1,17 @@
 export const schemaTargets = Object.freeze([
   Object.freeze({
+    type: "BrowserJavaScriptExpressionConformanceSuite",
+    source: "src/conformance.ts",
+    output: "browser-javascript-expression-conformance-suite.schema.json",
+    id: "https://schemas.elqora.com/dgp/v1/browser-javascript-expression-conformance-suite.schema.json",
+  }),
+  Object.freeze({
+    type: "ProductDefinitionValidationConformanceSuite",
+    source: "src/conformance.ts",
+    output: "product-definition-validation-conformance-suite.schema.json",
+    id: "https://schemas.elqora.com/dgp/v1/product-definition-validation-conformance-suite.schema.json",
+  }),
+  Object.freeze({
     type: "ProductDefinition",
     source: "src/product-definition.ts",
     output: "product-definition.schema.json",

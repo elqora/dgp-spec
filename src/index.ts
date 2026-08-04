@@ -13,6 +13,18 @@ export {
   EXPRESSION_FAILURE_CODES,
 } from "./expression.js";
 export type {
+  BrowserJavaScriptExpressionConformanceCase,
+  BrowserJavaScriptExpressionConformanceExpectation,
+  BrowserJavaScriptExpressionConformanceSuite,
+  BrowserJavaScriptExpressionRawInput,
+  FieldRegistryConformanceEntry,
+  ProductDefinitionValidationConformanceCase,
+  ProductDefinitionValidationConformanceContext,
+  ProductDefinitionValidationConformanceExpectation,
+  ProductDefinitionValidationConformanceSuite,
+  ServiceRatePolicy,
+} from "./conformance.js";
+export type {
   DiagnosticSeverity,
   ProductDefinitionDiagnostic,
   ProductDefinitionDiagnosticCode,

@@ -66,6 +66,11 @@
     "valid": true
   },
   {
+    "fixture": "semantic/browser-javascript-expression-execution.json",
+    "schema": "browser-javascript-expression-conformance-suite.schema.json",
+    "valid": true
+  },
+  {
     "fixture": "invalid/browser-javascript-expression-callback.json",
     "schema": "browser-javascript-expression.schema.json",
     "valid": false
@@ -88,6 +93,11 @@
   {
     "fixture": "valid/product-definition-validation-result.json",
     "schema": "product-definition-validation-result.schema.json",
+    "valid": true
+  },
+  {
+    "fixture": "semantic/product-definition-validation.json",
+    "schema": "product-definition-validation-conformance-suite.schema.json",
     "valid": true
   },
   {

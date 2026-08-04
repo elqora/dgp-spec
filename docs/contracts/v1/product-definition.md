@@ -16,15 +16,21 @@ Decision 0001 retains the established `filters`, `fields`, and relationship-map 
 
 Filters author hierarchy, service bindings, inclusion/exclusion relationships, capability requirements, and optional quantity defaults. Authored capability requirements use `capabilities`. Effective inherited capabilities, their origins, and override evidence are deterministic Core results and are not written back into this contract.
 
-Fields author customer inputs, options, bindings, defaults, validation declarations, quantity rules, service selection, and advisory utility declarations. Recursive options remain supported. Form-library components and runtime stores are not protocol data. `type` selects a host registry entry and JSON-compatible `defaults` configure it; no component identifier is serialized in `ProductDefinition`.
+Fields author customer inputs, options, bindings, defaults, validation declarations, quantity rules, service selection, and advisory utility declarations. Recursive options remain supported. `multiple: true` is the authored per-field permission for selecting more than one option; a registry may still reject it when a field type has no multi-select capability. Form-library components and runtime stores are not protocol data. `type` and optional `variant` select a host registry entry; an unavailable requested variant falls back to that type's default variant, matching the accepted registry behavior, while a missing type or missing default is a registry-resolution failure. JSON-compatible `defaults` configure the resolved entry; no component identifier is serialized in `ProductDefinition`.
 
-`meta` is always an opaque `Record<string, any>`. Quantity defaults, quantity rules, utility definitions, and capability requirements therefore have explicit properties and must never be inferred from reserved structures inside `meta`.
+Button include/exclude maps and option effects use button-field or recursive-option identifiers as trigger keys. Value effects additionally accept the current active filter identifier; its authored value effects run before selected button and option effects in deterministic selection order. Ancestor filters are visibility context, not implicit value-effect triggers.
+
+`meta` is always an opaque `Record<string, any>`. Quantity defaults, quantity rules, utility definitions, input variants, multiple-selection behavior, and capability requirements therefore have explicit properties and must never be inferred from reserved structures inside `meta`. A host may coincidentally store `variant` or `multi` metadata keys, but DGP assigns them no protocol meaning.
+
+Notices preserve the accepted `label`, `warning`, `deprecation`, `compat`, `migration`, and `policy` semantic kinds. A `compat` notice describes product or provider compatibility information; it does not enable legacy DGP wire compatibility. Presentation tokens such as icons and colors remain host metadata or Studio state.
 
 ## Expressions
 
-Quantity and customer-field `eval` rules carry a `BrowserJavaScriptExpression` with `language: "javascript"` and a trusted function `body`. The browser executor supplies ordered arguments `value` and `values`; missing input is normalized to `null`, while `values` is always an array. Quantity expressions must return a finite number. Customer-field expressions must return a JSON-compatible comparison value.
+Quantity and customer-field `eval` rules carry a `BrowserJavaScriptExpression` with `language: "javascript"` and a trusted function `body`. The browser executor supplies ordered arguments `value` and `values` for the field being evaluated; unrelated field values are never included. For array input, `value` is its first item (or `null` when empty) and `values` is the complete array. A present scalar, including explicit `null`, becomes `value` plus a one-item `values` array. Missing input becomes `value: null` and `values: []`. Quantity expressions must return a finite number. Customer-field expressions must return a JSON-compatible comparison value.
 
 The expression is trusted host configuration, not untrusted customer code. Missing source, thrown execution, and invalid results use the stable failure codes in `EXPRESSION_FAILURE_CODES`. Ordering must not construct a valid `OrderSnapshot` after such a failure.
+
+`fixtures/semantic/browser-javascript-expression-execution.json` is the portable execution suite for argument normalization, successful customer and quantity results, and all structured failure codes. Browser Ordering implementations consume it; non-browser SDKs are not required to execute it.
 
 ## Pricing boundary
 

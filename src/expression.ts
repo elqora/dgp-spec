@@ -14,7 +14,12 @@ export interface BrowserJavaScriptExpression {
 
 /**
  * Plain input contract for a browser JavaScript expression.
- * Missing customer input is normalized to null before execution.
+ *
+ * For one field's raw customer input, `value` is the scalar input or the first
+ * array item, while `values` is the complete array form. A present scalar,
+ * including an explicit null, becomes a one-item `values` array. Missing input
+ * is the sole exception: it is represented by `value: null` and `values: []`.
+ * These arguments never contain the values of unrelated fields.
  */
 export interface BrowserJavaScriptExpressionInput {
   value: JsonValue;

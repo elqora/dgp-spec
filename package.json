@@ -1,6 +1,6 @@
 {
   "name": "@elqora/dgp-spec",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Canonical plain contracts and generated interoperability artifacts for the Digital Goods Protocol.",
   "license": "GPL-3.0-only",
   "type": "module",

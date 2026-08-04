@@ -1,0 +1,1408 @@
+{
+  "version": "1",
+  "cases": [
+    {
+      "id": "valid-filter-trigger-multiple-variant",
+      "description": "Filter value effects, explicit variants, and supported multiple selection remain valid.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "variant": "default",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "label": "A"
+              },
+              {
+                "id": "b",
+                "label": "B"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "root": {
+            "choice": {
+              "value": [
+                "a",
+                "b"
+              ]
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "select",
+            "variants": [
+              "default"
+            ],
+            "multiple": true
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": true,
+        "diagnostic_codes": []
+      }
+    },
+    {
+      "id": "empty-node-label",
+      "description": "Whitespace-only authored node labels are rejected.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "   "
+          }
+        ],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "node_label_empty"
+        ]
+      }
+    },
+    {
+      "id": "duplicate-visible-field-label",
+      "description": "Fields visible in the same reachable context must not have duplicate labels.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "first",
+            "type": "text",
+            "label": "Duplicate",
+            "bind_id": "root",
+            "name": "first"
+          },
+          {
+            "id": "second",
+            "type": "text",
+            "label": "Duplicate",
+            "bind_id": "root",
+            "name": "second"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "duplicate_visible_field_label"
+        ]
+      }
+    },
+    {
+      "id": "unreachable-field",
+      "description": "A field with no binding or reachable inclusion is rejected.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "orphan",
+            "type": "text",
+            "label": "Orphan",
+            "name": "orphan"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "field_unreachable"
+        ]
+      }
+    },
+    {
+      "id": "unconfigured-service-selector",
+      "description": "A nameless field must select a service or act as a configured trigger.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "selector",
+            "type": "select",
+            "label": "Selector",
+            "bind_id": "root"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "service_selector_unconfigured"
+        ]
+      }
+    },
+    {
+      "id": "customer-input-service-conflict",
+      "description": "Customer-input fields must not also expose service-selecting options.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "customer",
+            "type": "select",
+            "label": "Customer",
+            "bind_id": "root",
+            "name": "customer",
+            "options": [
+              {
+                "id": "service-option",
+                "label": "Service option",
+                "service_id": 1
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "customer_input_service_conflict"
+        ]
+      }
+    },
+    {
+      "id": "conflicting-quantity-sources",
+      "description": "A reachable ordering context cannot contain more than one field quantity source.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "q1",
+            "type": "number",
+            "label": "Q1",
+            "bind_id": "root",
+            "name": "q1",
+            "quantity": {
+              "value_by": "value"
+            }
+          },
+          {
+            "id": "q2",
+            "type": "number",
+            "label": "Q2",
+            "bind_id": "root",
+            "name": "q2",
+            "quantity": {
+              "value_by": "length"
+            }
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "quantity_source_conflict"
+        ]
+      }
+    },
+    {
+      "id": "value-effect-invalid-option",
+      "description": "Value effects for selectable fields must assign owned option identifiers.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "options": [
+              {
+                "id": "a",
+                "label": "A"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "root": {
+            "choice": {
+              "value": "missing"
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "value_effect_value_invalid"
+        ]
+      }
+    },
+    {
+      "id": "value-effect-cardinality",
+      "description": "Value effects cannot assign multiple values to a single-select field.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "multiple": false,
+            "options": [
+              {
+                "id": "a",
+                "label": "A"
+              },
+              {
+                "id": "b",
+                "label": "B"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "root": {
+            "choice": {
+              "value": [
+                "a",
+                "b"
+              ]
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "value_effect_cardinality_mismatch"
+        ]
+      }
+    },
+    {
+      "id": "unknown-field-registry-entry",
+      "description": "Registry-aware publication rejects unresolved type and variant pairs.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "host",
+            "type": "host-widget",
+            "variant": "compact",
+            "label": "Host",
+            "bind_id": "root",
+            "name": "host"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "text",
+            "variants": [
+              "default"
+            ],
+            "multiple": false
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "field_registry_entry_unknown"
+        ]
+      }
+    },
+    {
+      "id": "incoherent-service-rates",
+      "description": "Co-selectable base services are checked against supplied catalog rate policy.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "services",
+            "type": "multiselect",
+            "label": "Services",
+            "bind_id": "root",
+            "multiple": true,
+            "options": [
+              {
+                "id": "one",
+                "label": "One",
+                "service_id": 1
+              },
+              {
+                "id": "two",
+                "label": "Two",
+                "service_id": 2
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          },
+          {
+            "id": 2,
+            "name": "Service 2",
+            "description": null,
+            "category": null,
+            "rate": 20,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": {
+          "kind": "eq_primary"
+        },
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "service_rate_incoherent"
+        ]
+      }
+    },
+    {
+      "id": "unavailable-primary-service",
+      "description": "A bound disabled or locked handler service is unavailable for publication.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "service_id": 1
+          }
+        ],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "disabled",
+            "state_reason": "Fixture state"
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "service_state_unavailable"
+        ]
+      }
+    },
+    {
+      "id": "incoherent-service-bounds",
+      "description": "Handler service minimums must not exceed maximums.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "service_id": 1
+          }
+        ],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 100,
+            "max": 10,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "service_quantity_bounds_incoherent"
+        ]
+      }
+    },
+    {
+      "id": "missing-utility-definition",
+      "description": "Utility-priced nodes require an explicit advisory utility declaration.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "service_id": 1
+          }
+        ],
+        "fields": [
+          {
+            "id": "utility",
+            "type": "number",
+            "label": "Utility",
+            "bind_id": "root",
+            "name": "utility",
+            "pricing_role": "utility"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "utility_definition_missing"
+        ]
+      }
+    },
+    {
+      "id": "fallback-rate-ineligible",
+      "description": "Fallback candidates must satisfy the configured catalog rate policy.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "service_id": 1
+          }
+        ],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": {
+          "nodes": {
+            "root": [
+              2
+            ]
+          }
+        },
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          },
+          {
+            "id": 2,
+            "name": "Service 2",
+            "description": null,
+            "category": null,
+            "rate": 20,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": {
+          "require_capability_fit": false,
+          "rate_policy": {
+            "kind": "eq_primary"
+          }
+        }
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "fallback_rate_ineligible"
+        ]
+      }
+    },
+    {
+      "id": "fallback-capability-ineligible",
+      "description": "Fallback candidates must satisfy effective filter capabilities when configured.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "service_id": 1,
+            "capabilities": {
+              "refill": true
+            }
+          }
+        ],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": {
+          "nodes": {
+            "root": [
+              2
+            ]
+          }
+        },
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {
+              "refill": {
+                "id": "refill",
+                "enabled": true,
+                "description": null,
+                "meta": {}
+              }
+            },
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          },
+          {
+            "id": 2,
+            "name": "Service 2",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {
+              "refill": {
+                "id": "refill",
+                "enabled": false,
+                "description": null,
+                "meta": {}
+              }
+            },
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": {
+          "require_capability_fit": true,
+          "rate_policy": {
+            "kind": "eq_primary"
+          }
+        }
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "fallback_capability_ineligible"
+        ]
+      }
+    },
+    {
+      "id": "registry-default-variant-fallback",
+      "description": "An unavailable requested variant falls back to the registered default variant.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "variant": "compact",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "select",
+            "variants": [
+              "default"
+            ],
+            "multiple": true
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": true,
+        "diagnostic_codes": []
+      }
+    },
+    {
+      "id": "unsupported-multiple-selection",
+      "description": "Registry-aware validation rejects multiple selection when the resolved entry cannot implement it.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "multiple": true,
+            "options": [
+              {
+                "id": "a",
+                "label": "A"
+              },
+              {
+                "id": "b",
+                "label": "B"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "select",
+            "variants": [
+              "default"
+            ],
+            "multiple": false
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "field_multiple_unsupported"
+        ]
+      }
+    },
+    {
+      "id": "unreachable-value-effect-target",
+      "description": "A value effect cannot target a field that is unreachable while its trigger is active.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "excludes": [
+              "target"
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "id": "trigger",
+            "type": "button",
+            "label": "Trigger",
+            "bind_id": "root",
+            "name": "trigger",
+            "button": true
+          },
+          {
+            "id": "target",
+            "type": "text",
+            "label": "Target",
+            "bind_id": "root",
+            "name": "target"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "trigger": {
+            "target": {
+              "value": "x"
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "effect_target_unreachable",
+          "field_unreachable"
+        ]
+      }
+    },
+    {
+      "id": "unresolved-fallback-context",
+      "description": "A node-scoped fallback requiring policy context is rejected when its filter context is ambiguous.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          },
+          {
+            "id": "other",
+            "label": "Other"
+          }
+        ],
+        "fields": [
+          {
+            "id": "selector",
+            "type": "select",
+            "label": "Selector",
+            "bind_id": [
+              "root",
+              "other"
+            ],
+            "multiple": false,
+            "options": [
+              {
+                "id": "one",
+                "label": "One",
+                "service_id": 1
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": {
+          "nodes": {
+            "one": [
+              2
+            ]
+          }
+        },
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          },
+          {
+            "id": 2,
+            "name": "Service 2",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {},
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": {
+          "require_capability_fit": true,
+          "rate_policy": {
+            "kind": "eq_primary"
+          }
+        }
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "fallback_context_unresolved"
+        ]
+      }
+    },
+    {
+      "id": "contextual-utility-base-missing",
+      "description": "A reachable context with advisory utilities requires a reachable base service.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "utility",
+            "type": "number",
+            "label": "Utility",
+            "bind_id": "root",
+            "name": "utility",
+            "pricing_role": "utility",
+            "utility": {
+              "rate": 2,
+              "mode": "flat"
+            }
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "utility_base_missing"
+        ]
+      }
+    },
+    {
+      "id": "option-service-capability-mismatch",
+      "description": "Every reachable service-selecting option must satisfy the effective filter capabilities.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root",
+            "capabilities": {
+              "refill": true
+            }
+          }
+        ],
+        "fields": [
+          {
+            "id": "selector",
+            "type": "select",
+            "label": "Selector",
+            "bind_id": "root",
+            "options": [
+              {
+                "id": "one",
+                "label": "One",
+                "service_id": 1
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [
+          {
+            "id": 1,
+            "name": "Service 1",
+            "description": null,
+            "category": null,
+            "rate": 10,
+            "min": 1,
+            "max": 100,
+            "capabilities": {
+              "refill": {
+                "id": "refill",
+                "enabled": false,
+                "description": null,
+                "meta": {}
+              }
+            },
+            "meta": {},
+            "state": "enabled",
+            "state_reason": null
+          }
+        ],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "capability_requirement_unsatisfied"
+        ]
+      }
+    },
+
+    {
+      "id": "missing-filter-root",
+      "description": "A publishable product requires at least one root filter context.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [],
+        "fields": [],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "filter_root_missing"
+        ]
+      }
+    }
+  ]
+}

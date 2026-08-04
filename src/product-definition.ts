@@ -94,10 +94,14 @@ export interface FieldOption {
 interface ProductFieldBase {
   id: string;
   type: string;
+  /** Optional host-registry variant; registries fall back to their default variant. */
+  variant?: string;
   label: string;
   bind_id?: string | string[];
   name?: string;
   required?: boolean;
+  /** Allows more than one selected option for this field. */
+  multiple?: boolean;
   default_value?: JsonValue;
   defaults?: Record<string, JsonValue>;
   options?: FieldOption[];
@@ -154,7 +158,13 @@ export type ProductNoticeType = "public" | "private";
 
 export type ProductNoticeSeverity = "info" | "warning" | "error";
 
-export type ProductNoticeKind = "label" | "warning" | "deprecation" | "policy";
+export type ProductNoticeKind =
+  | "label"
+  | "warning"
+  | "deprecation"
+  | "compat"
+  | "migration"
+  | "policy";
 
 export type ProductNoticeTarget =
   | { scope: "global" }

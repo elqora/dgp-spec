@@ -1,0 +1,250 @@
+{
+  "version": "1",
+  "cases": [
+    {
+      "id": "present-scalar",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return { value, values };"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": "alpha"
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": "alpha",
+          "values": [
+            "alpha"
+          ]
+        },
+        "value": {
+          "value": "alpha",
+          "values": [
+            "alpha"
+          ]
+        },
+        "failure_code": null
+      }
+    },
+    {
+      "id": "present-array",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return { value, values };"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": [
+          "alpha",
+          "beta"
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": "alpha",
+          "values": [
+            "alpha",
+            "beta"
+          ]
+        },
+        "value": {
+          "value": "alpha",
+          "values": [
+            "alpha",
+            "beta"
+          ]
+        },
+        "failure_code": null
+      }
+    },
+    {
+      "id": "present-empty-array",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return { value, values };"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": []
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": null,
+          "values": []
+        },
+        "value": {
+          "value": null,
+          "values": []
+        },
+        "failure_code": null
+      }
+    },
+    {
+      "id": "present-null",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return { value, values };"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": null
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": null,
+          "values": [
+            null
+          ]
+        },
+        "value": {
+          "value": null,
+          "values": [
+            null
+          ]
+        },
+        "failure_code": null
+      }
+    },
+    {
+      "id": "missing-input",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return { value, values };"
+      },
+      "raw_input": {
+        "kind": "missing"
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": null,
+          "values": []
+        },
+        "value": {
+          "value": null,
+          "values": []
+        },
+        "failure_code": null
+      }
+    },
+    {
+      "id": "missing-expression",
+      "purpose": "customer_validation",
+      "expression": null,
+      "raw_input": {
+        "kind": "missing"
+      },
+      "expected": {
+        "ok": false,
+        "arguments": {
+          "value": null,
+          "values": []
+        },
+        "value": null,
+        "failure_code": "expression_source_missing"
+      }
+    },
+    {
+      "id": "throwing-expression",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "throw new Error('fixture failure');"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": 1
+      },
+      "expected": {
+        "ok": false,
+        "arguments": {
+          "value": 1,
+          "values": [
+            1
+          ]
+        },
+        "value": null,
+        "failure_code": "expression_execution_failed"
+      }
+    },
+    {
+      "id": "non-json-result",
+      "purpose": "customer_validation",
+      "expression": {
+        "language": "javascript",
+        "body": "return undefined;"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": 1
+      },
+      "expected": {
+        "ok": false,
+        "arguments": {
+          "value": 1,
+          "values": [
+            1
+          ]
+        },
+        "value": null,
+        "failure_code": "expression_result_invalid"
+      }
+    },
+    {
+      "id": "valid-quantity-result",
+      "purpose": "quantity",
+      "expression": {
+        "language": "javascript",
+        "body": "return Number(value) * values.length;"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": 4
+      },
+      "expected": {
+        "ok": true,
+        "arguments": {
+          "value": 4,
+          "values": [
+            4
+          ]
+        },
+        "value": 4,
+        "failure_code": null
+      }
+    },
+    {
+      "id": "invalid-quantity-result",
+      "purpose": "quantity",
+      "expression": {
+        "language": "javascript",
+        "body": "return '4';"
+      },
+      "raw_input": {
+        "kind": "present",
+        "value": 4
+      },
+      "expected": {
+        "ok": false,
+        "arguments": {
+          "value": 4,
+          "values": [
+            4
+          ]
+        },
+        "value": null,
+        "failure_code": "expression_result_invalid"
+      }
+    }
+  ]
+}

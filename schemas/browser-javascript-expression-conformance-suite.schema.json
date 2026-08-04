@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.elqora.com/dgp/v1/browser-javascript-expression-conformance-suite.schema.json",
+  "$ref": "#/definitions/BrowserJavaScriptExpressionConformanceSuite",
+  "definitions": {
+    "BrowserJavaScriptExpressionConformanceSuite": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "const": "1"
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BrowserJavaScriptExpressionConformanceCase"
+          }
+        }
+      },
+      "required": [
+        "version",
+        "cases"
+      ],
+      "additionalProperties": false
+    },
+    "BrowserJavaScriptExpressionConformanceCase": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string",
+          "enum": [
+            "customer_validation",
+            "quantity"
+          ]
+        },
+        "expression": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BrowserJavaScriptExpression"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raw_input": {
+          "$ref": "#/definitions/BrowserJavaScriptExpressionRawInput"
+        },
+        "expected": {
+          "$ref": "#/definitions/BrowserJavaScriptExpressionConformanceExpectation"
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "expression",
+        "raw_input",
+        "expected"
+      ],
+      "additionalProperties": false,
+      "description": "One normalization and execution case for the trusted browser contract."
+    },
+    "BrowserJavaScriptExpression": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "const": "javascript"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "language",
+        "body"
+      ],
+      "additionalProperties": false,
+      "description": "A trusted host-authored browser JavaScript function body."
+    },
+    "BrowserJavaScriptExpressionRawInput": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "missing"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "present"
+            },
+            "value": {
+              "$ref": "#/definitions/JsonValue"
+            }
+          },
+          "required": [
+            "kind",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/JsonPrimitive"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        }
+      ]
+    },
+    "JsonPrimitive": {
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "BrowserJavaScriptExpressionConformanceExpectation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean",
+              "const": true
+            },
+            "arguments": {
+              "$ref": "#/definitions/BrowserJavaScriptExpressionInput"
+            },
+            "value": {
+              "$ref": "#/definitions/JsonValue"
+            },
+            "failure_code": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "ok",
+            "arguments",
+            "value",
+            "failure_code"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean",
+              "const": false
+            },
+            "arguments": {
+              "$ref": "#/definitions/BrowserJavaScriptExpressionInput"
+            },
+            "value": {
+              "type": "null"
+            },
+            "failure_code": {
+              "$ref": "#/definitions/ExpressionFailureCode"
+            }
+          },
+          "required": [
+            "ok",
+            "arguments",
+            "value",
+            "failure_code"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "BrowserJavaScriptExpressionInput": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/JsonValue"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonValue"
+          }
+        }
+      },
+      "required": [
+        "value",
+        "values"
+      ],
+      "additionalProperties": false,
+      "description": "Plain input contract for a browser JavaScript expression.\n\nFor one field's raw customer input, `value` is the scalar input or the first array item, while `values` is the complete array form. A present scalar, including an explicit null, becomes a one-item `values` array. Missing input is the sole exception: it is represented by `value: null` and `values: []`. These arguments never contain the values of unrelated fields."
+    },
+    "ExpressionFailureCode": {
+      "type": "string",
+      "enum": [
+        "expression_source_missing",
+        "expression_execution_failed",
+        "expression_result_invalid"
+      ]
+    }
+  }
+}
