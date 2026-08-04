@@ -6,7 +6,7 @@ Read and follow `../AGENTS.md` before working in this repository.
 
 This repository owns canonical plain shared and wire contracts for DGP. During migration, those contracts are authored in TypeScript and include `ProductDefinition`, wire naming, protocol versions, diagnostic identifiers, expression declarations, JSON fixtures, and generated JSON Schema artifacts.
 
-Read `CONTRACTS.md` before proposing or changing a shared contract. Spec owns portable representation and versioning, not every domain. `dgp-sdk` remains authoritative for backend domain semantics; legacy frontend behavior is evidence to be deliberately retained, improved, redesigned, or retired by its owning package.
+Read `CONTRACTS.md` before proposing or changing a shared contract. Spec owns portable representation and versioning, not every domain. `dgp-sdk` remains authoritative for backend domain semantics; proven legacy frontend behavior must be preserved by default in its owning package. Redesign or retirement requires explicit recorded user approval.
 
 ## Contract lifecycle
 
@@ -28,10 +28,20 @@ Dependent repositories may implement ratified, unreleased contracts during coord
 - Declare trusted browser JavaScript expressions as function bodies with documented arguments, return types, and structured failure expectations.
 - Define advisory browser utility data in `OrderSnapshot` without making it authoritative pricing or charge data.
 - Version breaking contract changes deliberately and maintain valid and invalid conformance fixtures.
+- Represent preserved behavior completely enough for every owning runtime to implement it without inventing a narrower local contract.
+- Define expression arguments, ordering, return semantics, and failures precisely; do not ratify an ambiguous expression contract.
+- Add portable semantic conformance fixtures when implementation resumes so Validation, the SDK, and future language implementations can prove the same outcomes.
+
+## Migration completeness
+
+- Inventory the legacy contract evidence behind every shared shape and diagnostic. Default to preserving behavior while replacing legacy names and wire structure with canonical v1 forms.
+- A missing contract, diagnostic, fixture, or semantic case is **pending migration**, not an implicit retirement.
+- Do not ratify a contract that narrows proven behavior unless the migration record links to explicit user approval for that redesign or retirement.
+- Schema validity alone is not conformance completeness. Required fixtures must cover structural and semantic outcomes used across language and runtime boundaries.
 
 ## Clean-break rule
 
-DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibility modes, or schemas for old definitions. Legacy schemas and tests are evidence only.
+DGP v1 does not contain legacy adapters, aliases, deprecated fields, compatibility modes, or schemas for old definitions. This clean break concerns representation and compatibility only; legacy schemas and tests remain binding behavioral evidence by default.
 
 ## Change workflow and operations
 
