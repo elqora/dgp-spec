@@ -1101,12 +1101,16 @@
         "type": {
           "type": "string"
         },
-        "variants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
+        "variant": {
+          "type": "string"
+        },
+        "options": {
+          "type": "boolean",
+          "description": "Whether this exact type/variant can render authored options."
+        },
+        "recursive_options": {
+          "type": "boolean",
+          "description": "Whether this exact type/variant can render recursive child options."
         },
         "multiple": {
           "type": "boolean"
@@ -1114,7 +1118,9 @@
       },
       "required": [
         "type",
-        "variants",
+        "variant",
+        "options",
+        "recursive_options",
         "multiple"
       ],
       "additionalProperties": false,
@@ -1226,6 +1232,7 @@
         "filter_cycle",
         "filter_root_missing",
         "field_unreachable",
+        "validation_context_limit_exceeded",
         "relationship_target_unknown",
         "relationship_conflict",
         "trigger_unknown",
@@ -1262,6 +1269,8 @@
         "utility_definition_missing",
         "utility_base_missing",
         "field_registry_entry_unknown",
+        "field_options_unsupported",
+        "field_recursive_options_unsupported",
         "field_multiple_unsupported"
       ]
     }

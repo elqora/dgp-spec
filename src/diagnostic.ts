@@ -15,6 +15,7 @@ export const PRODUCT_DEFINITION_DIAGNOSTIC_CODES = [
   "filter_cycle",
   "filter_root_missing",
   "field_unreachable",
+  "validation_context_limit_exceeded",
   "relationship_target_unknown",
   "relationship_conflict",
   "trigger_unknown",
@@ -51,6 +52,8 @@ export const PRODUCT_DEFINITION_DIAGNOSTIC_CODES = [
   "utility_definition_missing",
   "utility_base_missing",
   "field_registry_entry_unknown",
+  "field_options_unsupported",
+  "field_recursive_options_unsupported",
   "field_multiple_unsupported",
 ] as const;
 

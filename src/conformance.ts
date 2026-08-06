@@ -12,6 +12,9 @@ import type { JsonValue } from "./json.js";
 import type { ProductDefinition } from "./product-definition.js";
 import type { HandlerService } from "./service.js";
 
+/** Maximum effect-bearing visibility states a conforming publication validator may exhaust. */
+export const MAX_PRODUCT_DEFINITION_VALIDATION_CONTEXTS = 4096;
+
 /** Configurable catalog-rate comparison used by portable publication cases. */
 export type ServiceRatePolicy =
   | { kind: "eq_primary" }
@@ -22,8 +25,11 @@ export type ServiceRatePolicy =
 /** Host field-registry capability supplied to publication validation. */
 export interface FieldRegistryConformanceEntry {
   type: string;
-  /** @uniqueItems true */
-  variants: string[];
+  variant: string;
+  /** Whether this exact type/variant can render authored options. */
+  options: boolean;
+  /** Whether this exact type/variant can render recursive child options. */
+  recursive_options: boolean;
   multiple: boolean;
 }
 

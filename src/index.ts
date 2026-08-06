@@ -24,6 +24,7 @@ export type {
   ProductDefinitionValidationConformanceSuite,
   ServiceRatePolicy,
 } from "./conformance.js";
+export { MAX_PRODUCT_DEFINITION_VALIDATION_CONTEXTS } from "./conformance.js";
 export type {
   DiagnosticSeverity,
   ProductDefinitionDiagnostic,

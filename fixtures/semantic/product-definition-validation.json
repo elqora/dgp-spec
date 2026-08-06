@@ -59,9 +59,9 @@
         "field_registry": [
           {
             "type": "select",
-            "variants": [
-              "default"
-            ],
+            "variant": "default",
+            "options": true,
+            "recursive_options": false,
             "multiple": true
           }
         ],
@@ -534,9 +534,9 @@
         "field_registry": [
           {
             "type": "text",
-            "variants": [
-              "default"
-            ],
+            "variant": "default",
+            "options": false,
+            "recursive_options": false,
             "multiple": false
           }
         ],
@@ -1008,9 +1008,9 @@
         "field_registry": [
           {
             "type": "select",
-            "variants": [
-              "default"
-            ],
+            "variant": "default",
+            "options": true,
+            "recursive_options": false,
             "multiple": true
           }
         ],
@@ -1070,9 +1070,9 @@
         "field_registry": [
           {
             "type": "select",
-            "variants": [
-              "default"
-            ],
+            "variant": "default",
+            "options": true,
+            "recursive_options": false,
             "multiple": false
           }
         ],
@@ -1150,8 +1150,8 @@
       }
     },
     {
-      "id": "unresolved-fallback-context",
-      "description": "A node-scoped fallback requiring policy context is rejected when its filter context is ambiguous.",
+      "id": "multi-context-fallback-any-fit",
+      "description": "A node-scoped fallback bound to multiple filters is eligible when the candidate satisfies at least one reachable context.",
       "definition": {
         "id": "case-product",
         "name": "Case product",
@@ -1240,10 +1240,8 @@
         }
       },
       "expected": {
-        "valid": false,
-        "diagnostic_codes": [
-          "fallback_context_unresolved"
-        ]
+        "valid": true,
+        "diagnostic_codes": []
       }
     },
     {
@@ -1401,6 +1399,207 @@
         "valid": false,
         "diagnostic_codes": [
           "filter_root_missing"
+        ]
+      }
+    },
+    {
+      "id": "unsupported-field-options",
+      "description": "Registry-aware publication rejects authored options when the resolved type variant cannot render options.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "checkbox",
+            "variant": "default",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "options": [
+              {
+                "id": "one",
+                "label": "One"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "checkbox",
+            "variant": "default",
+            "options": false,
+            "recursive_options": false,
+            "multiple": false
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "field_options_unsupported"
+        ]
+      }
+    },
+    {
+      "id": "unsupported-recursive-field-options",
+      "description": "Registry-aware publication rejects child options when the resolved type variant supports only flat options.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choice",
+            "type": "select",
+            "variant": "default",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "options": [
+              {
+                "id": "parent",
+                "label": "Parent",
+                "children": [
+                  {
+                    "id": "child",
+                    "label": "Child"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [
+          {
+            "type": "select",
+            "variant": "default",
+            "options": true,
+            "recursive_options": false,
+            "multiple": false
+          }
+        ],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "field_recursive_options_unsupported"
+        ]
+      }
+    },
+    {
+      "id": "effect-context-limit",
+      "description": "Publication fails explicitly when exhaustive effect-bearing visibility analysis exceeds its declared safe bound.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "choices",
+            "type": "select",
+            "label": "Choices",
+            "bind_id": "root",
+            "name": "choices",
+            "multiple": true,
+            "options": [
+              { "id": "effect-01", "label": "Effect 01" },
+              { "id": "effect-02", "label": "Effect 02" },
+              { "id": "effect-03", "label": "Effect 03" },
+              { "id": "effect-04", "label": "Effect 04" },
+              { "id": "effect-05", "label": "Effect 05" },
+              { "id": "effect-06", "label": "Effect 06" },
+              { "id": "effect-07", "label": "Effect 07" },
+              { "id": "effect-08", "label": "Effect 08" },
+              { "id": "effect-09", "label": "Effect 09" },
+              { "id": "effect-10", "label": "Effect 10" },
+              { "id": "effect-11", "label": "Effect 11" },
+              { "id": "effect-12", "label": "Effect 12" },
+              { "id": "effect-13", "label": "Effect 13" }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {
+          "effect-01": [],
+          "effect-02": [],
+          "effect-03": [],
+          "effect-04": [],
+          "effect-05": [],
+          "effect-06": [],
+          "effect-07": [],
+          "effect-08": [],
+          "effect-09": [],
+          "effect-10": [],
+          "effect-11": [],
+          "effect-12": [],
+          "effect-13": []
+        },
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "validation_context_limit_exceeded"
         ]
       }
     }

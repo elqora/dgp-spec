@@ -10,6 +10,7 @@ describe("publication diagnostic migration coverage", () => {
     ["contextual duplicate labels", "duplicate_visible_field_label"],
     ["missing filter roots", "filter_root_missing"],
     ["unreachable fields", "field_unreachable"],
+    ["bounded exhaustive context analysis", "validation_context_limit_exceeded"],
     ["invalid value-effect values", "value_effect_value_invalid"],
     ["value-effect cardinality", "value_effect_cardinality_mismatch"],
     ["unreachable effect targets", "effect_target_unreachable"],
@@ -24,6 +25,8 @@ describe("publication diagnostic migration coverage", () => {
     ["fallback rate eligibility", "fallback_rate_ineligible"],
     ["missing utility declarations", "utility_definition_missing"],
     ["host field registries", "field_registry_entry_unknown"],
+    ["unsupported field options", "field_options_unsupported"],
+    ["unsupported recursive field options", "field_recursive_options_unsupported"],
     ["unsupported multiple selection", "field_multiple_unsupported"],
   ] as const)("retains an identifier for %s", (_behavior, code) => {
     expect(PRODUCT_DEFINITION_DIAGNOSTIC_CODES).toContain(code);
