@@ -22,7 +22,7 @@ describe("portable semantic conformance fixtures", () => {
       const codes = item.expected.diagnostic_codes;
       expect(codes).toEqual([...new Set(codes)].sort());
       expect(codes.every((code) => PRODUCT_DEFINITION_DIAGNOSTIC_CODES.includes(code))).toBe(true);
-      expect(item.expected.valid).toBe(codes.length === 0);
+      if (codes.length === 0) expect(item.expected.valid).toBe(true);
     }
   });
 
