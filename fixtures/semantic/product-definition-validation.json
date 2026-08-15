@@ -1529,6 +1529,284 @@
       }
     },
     {
+      "id": "option-effect-conflict",
+      "description": "A single option effect cannot include and exclude the same owned option.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "trigger",
+            "type": "button",
+            "label": "Trigger",
+            "bind_id": "root",
+            "button": true
+          },
+          {
+            "id": "choice",
+            "type": "select",
+            "label": "Choice",
+            "bind_id": "root",
+            "name": "choice",
+            "options": [
+              {
+                "id": "a",
+                "label": "A"
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {
+          "trigger": {
+            "choice": {
+              "include": ["a"],
+              "exclude": ["a"]
+            }
+          }
+        },
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "option_effect_conflict"
+        ]
+      }
+    },
+    {
+      "id": "visibility-dependency-cycle",
+      "description": "A reveal path that lets a revealed trigger hide its activator is rejected.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "a",
+            "type": "button",
+            "label": "A",
+            "bind_id": "root",
+            "button": true
+          },
+          {
+            "id": "b",
+            "type": "button",
+            "label": "B",
+            "bind_id": "root",
+            "button": true
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {
+          "a": ["b"]
+        },
+        "excludes_for_buttons": {
+          "b": ["a"]
+        },
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {},
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "visibility_dependency_cycle"
+        ]
+      }
+    },
+    {
+      "id": "value-effect-conflict",
+      "description": "Co-active triggers cannot assign different values to the same reachable field.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "a",
+            "type": "button",
+            "label": "A",
+            "bind_id": "root",
+            "button": true
+          },
+          {
+            "id": "b",
+            "type": "button",
+            "label": "B",
+            "bind_id": "root",
+            "button": true
+          },
+          {
+            "id": "target",
+            "type": "text",
+            "label": "Target",
+            "bind_id": "root",
+            "name": "target"
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "a": {
+            "target": {
+              "value": "first"
+            }
+          },
+          "b": {
+            "target": {
+              "value": "second"
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "value_effect_conflict"
+        ]
+      }
+    },
+    {
+      "id": "recursive-option-activation-cycle",
+      "description": "Recursive option value effects that activate each other form a publication-invalid cycle.",
+      "definition": {
+        "id": "case-product",
+        "name": "Case product",
+        "filters": [
+          {
+            "id": "root",
+            "label": "Root"
+          }
+        ],
+        "fields": [
+          {
+            "id": "a",
+            "type": "select",
+            "label": "A",
+            "bind_id": "root",
+            "name": "a",
+            "options": [
+              {
+                "id": "a-parent",
+                "label": "A parent",
+                "children": [
+                  {
+                    "id": "a-child",
+                    "label": "A child"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "type": "select",
+            "label": "B",
+            "bind_id": "root",
+            "name": "b",
+            "options": [
+              {
+                "id": "b-parent",
+                "label": "B parent",
+                "children": [
+                  {
+                    "id": "b-child",
+                    "label": "B child"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "order_for_tags": {},
+        "includes_for_buttons": {},
+        "excludes_for_buttons": {},
+        "option_effects_for_buttons": {},
+        "value_effects_for_triggers": {
+          "a-child": {
+            "b": {
+              "value": "b-child"
+            }
+          },
+          "b-child": {
+            "a": {
+              "value": "a-child"
+            }
+          }
+        },
+        "schema_version": "1",
+        "fallbacks": null,
+        "description": null,
+        "notices": [],
+        "meta": {}
+      },
+      "context": {
+        "services": [],
+        "field_registry": [],
+        "rate_policy": null,
+        "fallback_policy": null
+      },
+      "expected": {
+        "valid": false,
+        "diagnostic_codes": [
+          "value_effect_cycle"
+        ]
+      }
+    },
+    {
       "id": "effect-context-limit",
       "description": "Publication fails explicitly when exhaustive effect-bearing visibility analysis exceeds its declared safe bound.",
       "definition": {
