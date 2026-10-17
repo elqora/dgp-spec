@@ -585,6 +585,9 @@
             },
             "message": {
               "type": "string"
+            },
+            "error_message_on": {
+              "$ref": "#/definitions/FieldValidationErrorMessageOn"
             }
           },
           "required": [
@@ -631,6 +634,9 @@
             },
             "message": {
               "type": "string"
+            },
+            "error_message_on": {
+              "$ref": "#/definitions/FieldValidationErrorMessageOn"
             }
           },
           "required": [
@@ -656,6 +662,13 @@
         "truthy",
         "falsy",
         "match"
+      ]
+    },
+    "FieldValidationErrorMessageOn": {
+      "type": "string",
+      "enum": [
+        "submit",
+        "change"
       ]
     },
     "BrowserJavaScriptExpression": {

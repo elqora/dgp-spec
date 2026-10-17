@@ -51,6 +51,11 @@
     "valid": false
   },
   {
+    "fixture": "invalid/product-definition-invalid-error-message-on.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
     "fixture": "invalid/product-definition-missing-version.json",
     "schema": "product-definition.schema.json",
     "valid": false

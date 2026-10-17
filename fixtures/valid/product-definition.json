@@ -35,7 +35,8 @@
           "op": "gte",
           "value": 100,
           "code": "quantity_too_small",
-          "message": "Quantity must be at least 100."
+          "message": "Quantity must be at least 100.",
+          "error_message_on": "change"
         }
       ],
       "quantity": {

@@ -51,6 +51,7 @@ export { ORDER_SNAPSHOT_VERSION } from "./order-snapshot.js";
 export type {
   CapabilityRequirements,
   FieldOption,
+  FieldValidationErrorMessageOn,
   FieldValidationOperator,
   FieldValidationRule,
   FieldValidationValueBy,

@@ -43,6 +43,7 @@ export interface UtilityDefinition {
 }
 
 export type FieldValidationValueBy = "value" | "length" | "eval";
+export type FieldValidationErrorMessageOn = "submit" | "change";
 
 export type FieldValidationOperator =
   | "eq"
@@ -68,6 +69,7 @@ interface FieldValidationRuleBase {
   pattern_flags?: string;
   code?: string;
   message?: string;
+  error_message_on?: FieldValidationErrorMessageOn;
 }
 
 export type FieldValidationRule =
