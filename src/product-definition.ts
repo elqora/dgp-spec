@@ -84,6 +84,8 @@ export type FieldValidationRule =
 export interface FieldOption {
   id: string;
   label: string;
+  /** Optional trusted browser expression that overrides other visibility rules for this option. */
+  visibility_expression?: BrowserJavaScriptExpression;
   value?: JsonPrimitive;
   service_id?: ServiceId;
   pricing_role?: PricingRole;
@@ -99,6 +101,8 @@ interface ProductFieldBase {
   /** Optional host-registry variant; registries fall back to their default variant. */
   variant?: string;
   label: string;
+  /** Optional trusted browser expression that overrides other visibility rules for this field. */
+  visibility_expression?: BrowserJavaScriptExpression;
   bind_id?: string | string[];
   name?: string;
   required?: boolean;

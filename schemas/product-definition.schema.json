@@ -211,6 +211,10 @@
             "label": {
               "type": "string"
             },
+            "visibility_expression": {
+              "$ref": "#/definitions/BrowserJavaScriptExpression",
+              "description": "Optional trusted browser expression that overrides other visibility rules for this field."
+            },
             "bind_id": {
               "anyOf": [
                 {
@@ -304,6 +308,10 @@
             "label": {
               "type": "string"
             },
+            "visibility_expression": {
+              "$ref": "#/definitions/BrowserJavaScriptExpression",
+              "description": "Optional trusted browser expression that overrides other visibility rules for this field."
+            },
             "bind_id": {
               "anyOf": [
                 {
@@ -376,6 +384,25 @@
         }
       ]
     },
+    "BrowserJavaScriptExpression": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "const": "javascript"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "language",
+        "body"
+      ],
+      "additionalProperties": false,
+      "description": "A trusted host-authored browser JavaScript function body."
+    },
     "JsonValue": {
       "anyOf": [
         {
@@ -411,6 +438,10 @@
         },
         "label": {
           "type": "string"
+        },
+        "visibility_expression": {
+          "$ref": "#/definitions/BrowserJavaScriptExpression",
+          "description": "Optional trusted browser expression that overrides other visibility rules for this option."
         },
         "value": {
           "$ref": "#/definitions/JsonPrimitive"
@@ -620,25 +651,6 @@
         "submit",
         "change"
       ]
-    },
-    "BrowserJavaScriptExpression": {
-      "type": "object",
-      "properties": {
-        "language": {
-          "type": "string",
-          "const": "javascript"
-        },
-        "body": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "language",
-        "body"
-      ],
-      "additionalProperties": false,
-      "description": "A trusted host-authored browser JavaScript function body."
     },
     "QuantityRule": {
       "anyOf": [

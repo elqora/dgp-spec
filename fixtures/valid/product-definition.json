@@ -21,6 +21,10 @@
       "id": "field:quantity",
       "type": "number",
       "label": "Quantity",
+      "visibility_expression": {
+        "language": "javascript",
+        "body": "return preview.service_context.length > 0;"
+      },
       "bind_id": "tag:instagram",
       "name": "quantity",
       "required": true,
@@ -67,6 +71,10 @@
         {
           "id": "option:premium",
           "label": "Premium",
+          "visibility_expression": {
+            "language": "javascript",
+            "body": "return Boolean(preview.service_context[0]?.capabilities.refill?.enabled);"
+          },
           "value": "premium",
           "service_id": 102,
           "pricing_role": "base",

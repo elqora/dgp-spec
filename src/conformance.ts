@@ -97,3 +97,19 @@ export interface BrowserJavaScriptExpressionConformanceSuite {
   version: "1";
   cases: BrowserJavaScriptExpressionConformanceCase[];
 }
+
+export type VisibilityExpressionConformanceExpectation =
+  | { ok: true; value: boolean; failure_code: null }
+  | { ok: false; value: null; failure_code: ExpressionFailureCode };
+
+export interface VisibilityExpressionConformanceCase {
+  id: string;
+  expression: BrowserJavaScriptExpression | null;
+  preview: JsonValue;
+  expected: VisibilityExpressionConformanceExpectation;
+}
+
+export interface VisibilityExpressionConformanceSuite {
+  version: "1";
+  cases: VisibilityExpressionConformanceCase[];
+}

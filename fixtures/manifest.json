@@ -36,6 +36,11 @@
     "valid": true
   },
   {
+    "fixture": "invalid/product-definition-visibility-expression-missing-body.json",
+    "schema": "product-definition.schema.json",
+    "valid": false
+  },
+  {
     "fixture": "invalid/product-definition-camel-case-effect.json",
     "schema": "product-definition.schema.json",
     "valid": false

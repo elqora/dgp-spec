@@ -1,0 +1,47 @@
+{
+  "version": "1",
+  "cases": [
+    {
+      "id": "selected-service-capability-enabled",
+      "expression": {
+        "language": "javascript",
+        "body": "return preview.service_context.some(service => service.capabilities.drip_feed?.enabled);"
+      },
+      "preview": {
+        "service_context": [
+          {
+            "id": "svc:primary",
+            "capabilities": {
+              "drip_feed": { "id": "drip_feed", "enabled": true, "description": null, "meta": {} }
+            }
+          }
+        ]
+      },
+      "expected": { "ok": true, "value": true, "failure_code": null }
+    },
+    {
+      "id": "falsey-value-hides",
+      "expression": { "language": "javascript", "body": "return 0;" },
+      "preview": {},
+      "expected": { "ok": true, "value": false, "failure_code": null }
+    },
+    {
+      "id": "truthy-object-shows",
+      "expression": { "language": "javascript", "body": "return {};" },
+      "preview": {},
+      "expected": { "ok": true, "value": true, "failure_code": null }
+    },
+    {
+      "id": "missing-expression",
+      "expression": null,
+      "preview": {},
+      "expected": { "ok": false, "value": null, "failure_code": "expression_source_missing" }
+    },
+    {
+      "id": "throwing-expression",
+      "expression": { "language": "javascript", "body": "throw new Error('invalid preview rule');" },
+      "preview": {},
+      "expected": { "ok": false, "value": null, "failure_code": "expression_execution_failed" }
+    }
+  ]
+}

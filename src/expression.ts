@@ -5,6 +5,12 @@ import type { JsonValue } from "./json.js";
 /** Ordered arguments supplied to every trusted browser JavaScript expression. */
 export const BROWSER_JAVASCRIPT_EXPRESSION_ARGUMENTS = ["value", "values"] as const;
 
+/** Ordered arguments supplied to trusted browser JavaScript visibility expressions. */
+export const VISIBILITY_EXPRESSION_ARGUMENTS = ["preview"] as const;
+
+/** Visibility expression results use JavaScript Boolean(value) coercion. */
+export type VisibilityExpressionResult = boolean;
+
 /** A trusted host-authored browser JavaScript function body. */
 export interface BrowserJavaScriptExpression {
   language: "javascript";

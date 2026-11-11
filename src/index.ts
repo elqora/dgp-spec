@@ -7,15 +7,20 @@ export type {
   ExpressionFailureCode,
   ExpressionHostConfigurationFailure,
   QuantityExpressionResult,
+  VisibilityExpressionResult,
 } from "./expression.js";
 export {
   BROWSER_JAVASCRIPT_EXPRESSION_ARGUMENTS,
   EXPRESSION_FAILURE_CODES,
+  VISIBILITY_EXPRESSION_ARGUMENTS,
 } from "./expression.js";
 export type {
   BrowserJavaScriptExpressionConformanceCase,
   BrowserJavaScriptExpressionConformanceExpectation,
   BrowserJavaScriptExpressionConformanceSuite,
+  VisibilityExpressionConformanceCase,
+  VisibilityExpressionConformanceExpectation,
+  VisibilityExpressionConformanceSuite,
   BrowserJavaScriptExpressionRawInput,
   FieldRegistryConformanceEntry,
   ProductDefinitionValidationConformanceCase,
