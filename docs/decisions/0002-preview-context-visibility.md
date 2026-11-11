@@ -6,7 +6,7 @@
 
 ## Decision
 
-Fields and recursive options may store a trusted browser JavaScript `visibility_expression`. The expression receives the current provisional `OrderPreview` as its only argument, named `preview`; its raw result is converted with JavaScript `Boolean(...)`.
+Fields and recursive options may store a trusted browser JavaScript `visibility_expression`. The stored source is an expression, not a function body or `return` statement. Ordering evaluates it with the current provisional `OrderPreview` in scope as `preview`; its raw result is converted with JavaScript `Boolean(...)`.
 
 When an expression is configured, its truthy/falsy result overrides existing visibility mechanisms for that node. Without an expression, existing behavior remains in force. An option expression does not force its parent field visible.
 

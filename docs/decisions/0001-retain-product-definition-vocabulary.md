@@ -18,7 +18,7 @@ The retained vocabulary does not preserve obsolete structure:
 - derived capability origins and overrides remain Core runtime state rather than authored contract data;
 - quantity and advisory utility declarations are explicit because `meta` is opaque and cannot carry universal protocol meaning;
 - the redundant field `component` property is removed; hosts resolve field `type` through their input registry;
-- expression declarations use explicit browser JavaScript function bodies with Spec-owned argument and return contracts;
+- quantity and validation declarations use browser JavaScript function bodies with Spec-owned argument and return contracts; visibility declarations store JavaScript expressions with `preview` in scope;
 - `estimates`, compatibility aliases, deprecated fields, and legacy normalization modes remain excluded.
 
 ## Behavioral disposition

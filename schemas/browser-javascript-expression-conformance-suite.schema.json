@@ -80,7 +80,7 @@
         "body"
       ],
       "additionalProperties": false,
-      "description": "A trusted host-authored browser JavaScript function body."
+      "description": "Trusted host-authored browser JavaScript source stored as plain data."
     },
     "BrowserJavaScriptExpressionRawInput": {
       "anyOf": [
